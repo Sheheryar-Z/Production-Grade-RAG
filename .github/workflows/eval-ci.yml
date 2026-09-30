@@ -1,0 +1,61 @@
+# Phase 7: eval-as-CI. Runs the golden-set eval on every push/PR and fails
+# the build if a tracked retrieval/refusal metric regresses past its
+# tolerance -- see scripts/check_regression.py for the actual gate logic
+# (unit-tested independently in tests/test_check_regression.py) and
+# docs/ABLATIONS.md Phase 7 for why this workflow uses config/ci.yaml
+# (network-free local_tfidf embeddings) rather than config/default.yaml's
+# sentence-transformers, and for the one honest caveat on this file: it
+# hasn't been run against a live GitHub Actions runner from the sandbox
+# this repo was built in (that sandbox's own egress policy blocks
+# huggingface.co, api.openai.com, and everything else this workflow
+# doesn't need -- but it has no way to reach github.com's Actions API
+# either, so the YAML below is correct by inspection and by having its
+# every individual command run and verified locally, not by a live CI run).
+name: eval-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Unit tests
+        run: python -m pytest tests/ -q
+
+      - name: Fetch corpus
+        # kubernetes/website via GitHub -- unrelated to the huggingface.co
+        # block this repo's dev sandbox has; a normal GitHub Actions runner
+        # reaches this fine.
+        run: python scripts/fetch_corpus.py
+
+      - name: Ingest (CI config: local_tfidf, network-free and deterministic)
+        run: K8S_RAG_CONFIG=config/ci.yaml python scripts/ingest.py
+
+      - name: Run eval
+        run: K8S_RAG_CONFIG=config/ci.yaml python scripts/run_eval.py
+
+      - name: Regression gate
+        run: >
+          python scripts/check_regression.py
+          --baseline data/eval/results/ci_baseline.json
+          --current data/eval/results/ci.json
+
+      - name: Upload eval results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: data/eval/results/

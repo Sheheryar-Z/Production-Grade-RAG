@@ -1,0 +1,63 @@
+# Best embeddings achievable in this sandbox: huggingface.co is still
+# blocked at the organization egress-policy level (re-confirmed -- this
+# isn't affected by a network change on the user's own end), but GitHub
+# release assets ARE reachable, which is how en_core_web_md's word vectors
+# get installed. Real semantic similarity (synonym/paraphrase matching),
+# just static per-word vectors rather than a contextual transformer -- see
+# src/k8s_rag/embeddings.py's module docstring for the honest comparison
+# against sentence_transformers, openai, and the local_tfidf fallback below
+# it. Anywhere with normal network access, use default.yaml instead.
+
+run_name: phase1-baseline-sandbox-spacy
+
+corpus:
+  versions:
+    - "1.19"
+    - "1.21"
+    - "1.24"
+    - "1.25"
+    - "1.28"
+    - "1.31"
+  source_repo: "kubernetes/website"
+  branch_template: "release-{version}"
+
+chunking:
+  strategy: fixed        # fixed | recursive | semantic | parent_document (Phase 2 ablates this)
+  chunk_size_tokens: 400
+  chunk_overlap_tokens: 60
+  parent_size_tokens: 1200   # only used by strategy: parent_document
+
+embedding:
+  provider: spacy_vectors   # real static word vectors, installed via GitHub release asset
+  model: "en_core_web_md"
+
+retrieval:
+  mode: vector            # vector | hybrid (Phase 3 turns this on)
+  top_k: 8
+  bm25:
+    enabled: false
+    weight: 0.5            # used once hybrid mode is on (Phase 3)
+
+reranker:
+  enabled: false           # Phase 4
+  provider: cohere         # cohere | cross_encoder
+  top_n: 4
+  min_relevance_score: 0.0 # refusal threshold once reranker is enabled (Phase 4)
+
+generation:
+  provider: stub           # stub | openai | anthropic — see src/k8s_rag/llm.py
+  model: "gpt-4o-mini"
+  temperature: 0.0
+  refuse_below_context_chunks: 1   # no retrieved evidence at all -> refuse
+  prompt_version: "v1"             # see config/prompts/
+
+query_understanding:
+  enabled: false           # Phase 5
+
+tracing:
+  langsmith_project: "k8s-rag-portfolio"   # only active if LANGCHAIN_API_KEY is set
+
+vector_store:
+  provider: chroma
+  persist_dir: "data/chroma"
+  collection_name: "k8s_docs"

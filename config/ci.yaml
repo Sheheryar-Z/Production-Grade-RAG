@@ -1,0 +1,74 @@
+# Phase 7: the config CI actually runs against. Deliberately its own file,
+# not a symlink/copy of config/sandbox_local_phase4.yaml -- an experiment
+# config (phaseN-*.yaml) is free to change as new ablations run, but CI's
+# regression gate needs one fixed, deliberately-versioned target so
+# "regression" has a stable meaning across commits. As of this phase its
+# settings match the Phase 4 recorded config (parent_document chunking,
+# hybrid retrieval, calibrated confidence gate, local_tfidf embeddings --
+# network-free and deterministic, which matters for CI: no flakiness from a
+# model host being briefly unreachable, no per-run cost).
+#
+# data/eval/results/ci_baseline.json is the frozen comparison point
+# scripts/check_regression.py checks a fresh run against. Update it
+# deliberately (re-run scripts/run_eval.py with this config, copy the
+# output over ci_baseline.json, commit both together) whenever a real,
+# intentional change to this config changes the numbers -- never silently,
+# and never as an automatic step of a normal run.
+
+run_name: ci
+
+corpus:
+  versions:
+    - "1.19"
+    - "1.21"
+    - "1.24"
+    - "1.25"
+    - "1.28"
+    - "1.31"
+  source_repo: "kubernetes/website"
+  branch_template: "release-{version}"
+
+chunking:
+  strategy: parent_document
+  chunk_size_tokens: 150
+  chunk_overlap_tokens: 30
+  parent_size_tokens: 1200
+
+embedding:
+  provider: local_tfidf   # network-free and deterministic on purpose -- see header comment
+  model: "n/a"
+
+retrieval:
+  mode: hybrid
+  top_k: 8
+  bm25:
+    enabled: true
+
+reranker:
+  enabled: false           # still unimplemented -- see docs/ABLATIONS.md Phase 4
+  provider: cohere
+  top_n: 4
+
+confidence_gate:
+  enabled: true
+  min_score: 0.02990
+
+generation:
+  provider: stub
+  model: "gpt-4o-mini"
+  temperature: 0.0
+  refuse_below_context_chunks: 1
+  prompt_version: "v1"
+
+query_understanding:
+  enabled: false           # Phase 5 found this regresses retrieval and refusal -- see
+                            # docs/ABLATIONS.md Phase 5. CI runs the shipped default, not
+                            # the rejected experiment.
+
+tracing:
+  langsmith_project: "k8s-rag-portfolio"
+
+vector_store:
+  provider: chroma
+  persist_dir: "data/chroma"
+  collection_name: "k8s_docs"

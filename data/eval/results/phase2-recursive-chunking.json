@@ -1,0 +1,54 @@
+{
+  "run_name": "phase2-recursive-chunking",
+  "config_path": "config/sandbox_local_recursive.yaml",
+  "n_questions": 20,
+  "retrieval": {
+    "recall_at_k": 0.9285714285714286,
+    "mrr": 0.7738095238095238,
+    "top_k": 8
+  },
+  "refusal": {
+    "recall": 0.16666666666666666,
+    "rows": [
+      {
+        "id": "ua-001",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-002",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-003",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-004",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-005",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-006",
+        "correctly_refused": false,
+        "decision": "generate"
+      }
+    ]
+  },
+  "generation_quality": {
+    "status": "skipped",
+    "faithfulness": null,
+    "citation_precision": null,
+    "answer_relevancy": null
+  },
+  "latency_ms": {
+    "p50": 10.381102561950684
+  }
+}

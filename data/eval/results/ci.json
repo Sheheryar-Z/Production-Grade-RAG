@@ -1,0 +1,61 @@
+{
+  "run_name": "ci",
+  "config_path": "config/ci.yaml",
+  "repro": {
+    "git_commit": "142e1da92092a2a29f9a645632127a219f1bd447",
+    "git_dirty": true,
+    "config_content_hash": "8b7dbc0471e7"
+  },
+  "n_questions": 20,
+  "retrieval": {
+    "recall_at_k": 1,
+    "mrr": 0.8928571428571429,
+    "top_k": 8,
+    "citation_coverage": 0.9047619047619048,
+    "citation_coverage_version_sensitive": 0.7777777777777778
+  },
+  "refusal": {
+    "recall": 0.8333333333333334,
+    "rows": [
+      {
+        "id": "ua-001",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-002",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-003",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-004",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-005",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-006",
+        "correctly_refused": true,
+        "decision": "refuse"
+      }
+    ]
+  },
+  "generation_quality": {
+    "status": "skipped",
+    "faithfulness": null,
+    "citation_precision": null,
+    "answer_relevancy": null
+  },
+  "latency_ms": {
+    "p50": 75.71852207183838
+  }
+}

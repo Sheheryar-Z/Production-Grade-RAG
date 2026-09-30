@@ -1,0 +1,90 @@
+# Versioned run config. Every eval run in docs/ABLATIONS.md is tied to a
+# specific commit of this file (or a named copy in config/), so results are
+# always reproducible: `git show <commit>:config/default.yaml`.
+
+run_name: phase1-baseline
+
+corpus:
+  versions:
+    - "1.19"
+    - "1.21"
+    - "1.24"
+    - "1.25"
+    - "1.28"
+    - "1.31"
+  source_repo: "kubernetes/website"
+  branch_template: "release-{version}"
+
+chunking:
+  strategy: parent_document  # fixed | recursive | parent_document -- see docs/ABLATIONS.md Phase 2.
+                             # parent_document won: matched fixed's ~100% recall while handing
+                             # generation a larger, fuller context per retrieved hit. recursive
+                             # (header-aware, one topic per chunk) actually did WORSE than fixed on
+                             # recall -- more, smaller chunks meant less term density per chunk for
+                             # keyword-style matching. semantic (embedding-similarity split points)
+                             # deliberately not implemented -- see chunking.py's module docstring.
+  chunk_size_tokens: 150     # small child chunks for precise matching
+  chunk_overlap_tokens: 30
+  parent_size_tokens: 1200   # larger parent section handed to generation
+
+embedding:
+  provider: sentence_transformers   # sentence_transformers | openai | cohere
+  model: "all-MiniLM-L6-v2"
+  # swap to an API-backed model for production quality:
+  # provider: openai
+  # model: "text-embedding-3-small"
+
+retrieval:
+  mode: hybrid             # vector | hybrid -- see docs/ABLATIONS.md Phase 3. Hybrid's real
+                           # payoff needs a genuinely semantic vector side (this file's
+                           # sentence_transformers/openai) fused against BM25's lexical side --
+                           # those two have complementary failure modes. In this project's
+                           # sandbox runs the vector side was ALSO lexical (TF-IDF), so hybrid
+                           # only fused two similar signals and the gain was marginal; don't
+                           # expect that result to hold here with a real embedding model.
+  top_k: 8
+  bm25:
+    enabled: true
+    # no `weight` -- RRF fuses by rank position, see src/k8s_rag/retrieval.py
+
+reranker:
+  enabled: false           # Still unimplemented. A real cross-encoder reranker (e.g.
+                            # sentence-transformers CrossEncoder) is huggingface.co-hosted --
+                            # same blocker as Phase 1's embedding model, confirmed by reading
+                            # flashrank's source too. No GitHub-hosted alternative found. See
+                            # docs/ABLATIONS.md Phase 4 and scripts/calibrate_refusal.py.
+  provider: cohere         # cohere | cross_encoder
+  top_n: 4
+
+confidence_gate:
+  enabled: true             # the half of Phase 4 that doesn't need a new model: a refusal
+                             # threshold on the retrieval score the pipeline already produces
+  min_score: 0.02990         # calibrated empirically by scripts/calibrate_refusal.py against
+                             # the golden set -- re-run it after any retrieval change, this
+                             # number is tied to this exact pipeline configuration
+
+generation:
+  provider: stub           # stub | openai | anthropic — see src/k8s_rag/llm.py
+  model: "gpt-4o-mini"
+  temperature: 0.0
+  refuse_below_context_chunks: 1   # no retrieved evidence at all -> refuse
+  prompt_version: "v1"             # see config/prompts/
+
+query_understanding:
+  enabled: false           # Phase 5: per-version fan-out was built and measured, not just left
+                            # undone -- it made retrieval AND the calibrated refusal gate worse
+                            # (Recall@8 100%->92.9%, refusal recall 83.3%->50%), root-caused to
+                            # two distinct mechanisms (a generic "deprecation-guide" attractor
+                            # page winning ties locally per version, and RRF's rank-only scoring
+                            # losing comparability once the candidate pool shrinks per version).
+                            # See docs/ABLATIONS.md Phase 5 and config/sandbox_local_phase5.yaml.
+                            # Real LLM-based query rewriting remains the documented gap, same
+                            # pattern as the Phase 4 reranker.
+
+tracing:
+  langsmith_project: "k8s-rag-portfolio"   # only active if LANGCHAIN_API_KEY is set
+
+vector_store:
+  provider: chroma
+  persist_dir: "data/chroma"
+  collection_name: "k8s_docs"

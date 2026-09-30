@@ -1,0 +1,133 @@
+{
+  "config_path": "config/sandbox_local_phase5.yaml",
+  "repro": {
+    "git_commit": "c038692e42a347e46eb80f9f704122319f321a45",
+    "git_dirty": true,
+    "config_content_hash": "ef35c4e41577"
+  },
+  "rows": [
+    {
+      "id": "sv-001",
+      "category": "single_version",
+      "top_score": 0.032018442622950824,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-002",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-003",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-004",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-005",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-006",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-007",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "sv-008",
+      "category": "single_version",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-001",
+      "category": "version_sensitive",
+      "top_score": 0.03225806451612903,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-002",
+      "category": "version_sensitive",
+      "top_score": 0.03252247488101534,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-003",
+      "category": "version_sensitive",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-004",
+      "category": "version_sensitive",
+      "top_score": 0.03278688524590164,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-005",
+      "category": "version_sensitive",
+      "top_score": 0.03252247488101534,
+      "should_refuse": false
+    },
+    {
+      "id": "vs-006",
+      "category": "version_sensitive",
+      "top_score": 0.03252247488101534,
+      "should_refuse": false
+    },
+    {
+      "id": "ua-001",
+      "category": "unanswerable",
+      "top_score": 0.03225806451612903,
+      "should_refuse": true
+    },
+    {
+      "id": "ua-002",
+      "category": "unanswerable",
+      "top_score": 0.03225806451612903,
+      "should_refuse": true
+    },
+    {
+      "id": "ua-003",
+      "category": "unanswerable",
+      "top_score": 0.0,
+      "should_refuse": true
+    },
+    {
+      "id": "ua-004",
+      "category": "unanswerable",
+      "top_score": 0.027271052146674038,
+      "should_refuse": true
+    },
+    {
+      "id": "ua-005",
+      "category": "unanswerable",
+      "top_score": 0.030886196246139225,
+      "should_refuse": true
+    },
+    {
+      "id": "ua-006",
+      "category": "unanswerable",
+      "top_score": 0.029726775956284153,
+      "should_refuse": true
+    }
+  ],
+  "best_threshold": 0.03239,
+  "best_refusal_recall": 1.0,
+  "best_answerable_pass_rate": 0.8571428571428571
+}

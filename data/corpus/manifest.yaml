@@ -1,0 +1,336 @@
+- version: '1.19'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.19/concepts__services-networking__ingress.md
+- version: '1.19'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.19/concepts__workloads__controllers__deployment.md
+- version: '1.19'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.19/concepts__workloads__controllers__cron-jobs.md
+- version: '1.19'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: missing
+  file: null
+- version: '1.19'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.19/concepts__security__pod-security-standards.md
+- version: '1.19'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.19/concepts__workloads__pods__disruptions.md
+- version: '1.19'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.19/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.19'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.19/setup__production-environment__container-runtimes.md
+- version: '1.19'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.19/concepts__services-networking__dual-stack.md
+- version: '1.19'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: missing
+  file: null
+- version: '1.21'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.21/concepts__services-networking__ingress.md
+- version: '1.21'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.21/concepts__workloads__controllers__deployment.md
+- version: '1.21'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.21/concepts__workloads__controllers__cron-jobs.md
+- version: '1.21'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: missing
+  file: null
+- version: '1.21'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.21/concepts__security__pod-security-standards.md
+- version: '1.21'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.21/concepts__workloads__pods__disruptions.md
+- version: '1.21'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.21/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.21'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.21/setup__production-environment__container-runtimes.md
+- version: '1.21'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.21/concepts__services-networking__dual-stack.md
+- version: '1.21'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: ok
+  file: data/corpus/1.21/reference__using-api__deprecation-guide.md
+- version: '1.24'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.24/concepts__services-networking__ingress.md
+- version: '1.24'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.24/concepts__workloads__controllers__deployment.md
+- version: '1.24'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.24/concepts__workloads__controllers__cron-jobs.md
+- version: '1.24'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: ok
+  file: data/corpus/1.24/concepts__security__pod-security-policy.md
+- version: '1.24'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.24/concepts__security__pod-security-standards.md
+- version: '1.24'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.24/concepts__workloads__pods__disruptions.md
+- version: '1.24'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.24/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.24'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.24/setup__production-environment__container-runtimes.md
+- version: '1.24'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.24/concepts__services-networking__dual-stack.md
+- version: '1.24'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: ok
+  file: data/corpus/1.24/reference__using-api__deprecation-guide.md
+- version: '1.25'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.25/concepts__services-networking__ingress.md
+- version: '1.25'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.25/concepts__workloads__controllers__deployment.md
+- version: '1.25'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.25/concepts__workloads__controllers__cron-jobs.md
+- version: '1.25'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: ok
+  file: data/corpus/1.25/concepts__security__pod-security-policy.md
+- version: '1.25'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.25/concepts__security__pod-security-standards.md
+- version: '1.25'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.25/concepts__workloads__pods__disruptions.md
+- version: '1.25'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.25/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.25'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.25/setup__production-environment__container-runtimes.md
+- version: '1.25'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.25/concepts__services-networking__dual-stack.md
+- version: '1.25'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: ok
+  file: data/corpus/1.25/reference__using-api__deprecation-guide.md
+- version: '1.28'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.28/concepts__services-networking__ingress.md
+- version: '1.28'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.28/concepts__workloads__controllers__deployment.md
+- version: '1.28'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.28/concepts__workloads__controllers__cron-jobs.md
+- version: '1.28'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: ok
+  file: data/corpus/1.28/concepts__security__pod-security-policy.md
+- version: '1.28'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.28/concepts__security__pod-security-standards.md
+- version: '1.28'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.28/concepts__workloads__pods__disruptions.md
+- version: '1.28'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.28/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.28'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.28/setup__production-environment__container-runtimes.md
+- version: '1.28'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.28/concepts__services-networking__dual-stack.md
+- version: '1.28'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: ok
+  file: data/corpus/1.28/reference__using-api__deprecation-guide.md
+- version: '1.31'
+  page: concepts/services-networking/ingress
+  reason: Ingress API moved extensions/v1beta1 -> networking.k8s.io/v1beta1 -> networking.k8s.io/v1
+    (required from 1.22)
+  status: ok
+  file: data/corpus/1.31/concepts__services-networking__ingress.md
+- version: '1.31'
+  page: concepts/workloads/controllers/deployment
+  reason: Deployment API group history (extensions/v1beta1 -> apps/v1)
+  status: ok
+  file: data/corpus/1.31/concepts__workloads__controllers__deployment.md
+- version: '1.31'
+  page: concepts/workloads/controllers/cron-jobs
+  reason: 'CronJob: batch/v1beta1 default pre-1.21, batch/v1 default from 1.21, v1beta1
+    removed in 1.25'
+  status: ok
+  file: data/corpus/1.31/concepts__workloads__controllers__cron-jobs.md
+- version: '1.31'
+  page: concepts/security/pod-security-policy
+  reason: 'PodSecurityPolicy: deprecated in 1.21, REMOVED in 1.25 (page itself disappears/redirects
+    post-1.25)'
+  status: ok
+  file: data/corpus/1.31/concepts__security__pod-security-policy.md
+- version: '1.31'
+  page: concepts/security/pod-security-standards
+  reason: 'Pod Security Admission: the 1.25+ replacement for PodSecurityPolicy'
+  status: ok
+  file: data/corpus/1.31/concepts__security__pod-security-standards.md
+- version: '1.31'
+  page: concepts/workloads/pods/disruptions
+  reason: 'PodDisruptionBudget: policy/v1beta1 -> policy/v1 (v1 since 1.21, v1beta1
+    removed in 1.25)'
+  status: ok
+  file: data/corpus/1.31/concepts__workloads__pods__disruptions.md
+- version: '1.31'
+  page: tasks/run-application/horizontal-pod-autoscale
+  reason: 'HorizontalPodAutoscaler: autoscaling/v2beta2 -> autoscaling/v2 (GA in 1.23)'
+  status: ok
+  file: data/corpus/1.31/tasks__run-application__horizontal-pod-autoscale.md
+- version: '1.31'
+  page: setup/production-environment/container-runtimes
+  reason: Dockershim removed in 1.24 -- container runtime setup instructions changed
+    materially
+  status: ok
+  file: data/corpus/1.31/setup__production-environment__container-runtimes.md
+- version: '1.31'
+  page: concepts/services-networking/dual-stack
+  reason: 'IPv4/IPv6 dual-stack: alpha pre-1.21, beta 1.21-1.22, stable from 1.23'
+  status: ok
+  file: data/corpus/1.31/concepts__services-networking__dual-stack.md
+- version: '1.31'
+  page: reference/using-api/deprecation-guide
+  reason: The canonical deprecation-guide page itself -- its content changes every
+    release
+  status: ok
+  file: data/corpus/1.31/reference__using-api__deprecation-guide.md

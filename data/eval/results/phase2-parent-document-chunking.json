@@ -1,0 +1,54 @@
+{
+  "run_name": "phase2-parent-document-chunking",
+  "config_path": "config/sandbox_local_parent.yaml",
+  "n_questions": 20,
+  "retrieval": {
+    "recall_at_k": 1,
+    "mrr": 0.8892857142857142,
+    "top_k": 8
+  },
+  "refusal": {
+    "recall": 0.16666666666666666,
+    "rows": [
+      {
+        "id": "ua-001",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-002",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-003",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-004",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-005",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-006",
+        "correctly_refused": false,
+        "decision": "generate"
+      }
+    ]
+  },
+  "generation_quality": {
+    "status": "skipped",
+    "faithfulness": null,
+    "citation_precision": null,
+    "answer_relevancy": null
+  },
+  "latency_ms": {
+    "p50": 13.186335563659668
+  }
+}

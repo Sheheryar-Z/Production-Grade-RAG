@@ -1,0 +1,80 @@
+# NOT the recommended config -- this is the Phase 5 experiment run, kept for
+# reproducibility of a NEGATIVE result. query_understanding.enabled: true
+# below measurably makes retrieval and refusal worse; see docs/ABLATIONS.md
+# Phase 5 for the full root-cause writeup (a generic attractor page winning
+# per-version ties, and RRF's rank-only scoring losing comparability once
+# fan-out shrinks the candidate pool). config/default.yaml is what to run.
+#
+# Sandbox variant of default.yaml: this dev sandbox's egress policy blocks
+# huggingface.co, so sentence-transformers can't download model weights here.
+# The only diff from default.yaml (beyond query_understanding) is
+# embedding.provider: local_tfidf (see src/k8s_rag/embeddings.py for why
+# that's a legitimate, honestly-labeled naive baseline rather than a
+# workaround pretending to be the real thing).
+
+run_name: phase5-version-fanout
+
+corpus:
+  versions:
+    - "1.19"
+    - "1.21"
+    - "1.24"
+    - "1.25"
+    - "1.28"
+    - "1.31"
+  source_repo: "kubernetes/website"
+  branch_template: "release-{version}"
+
+chunking:
+  strategy: parent_document  # Phase 2 ablation: small child chunks, larger parent context
+  chunk_size_tokens: 150   # small child chunks for precise matching (parent_document strategy)
+  chunk_overlap_tokens: 30
+  parent_size_tokens: 1200   # only used by strategy: parent_document
+
+embedding:
+  provider: local_tfidf   # network-free fallback -- see embeddings.py docstring
+  model: "n/a"
+
+retrieval:
+  mode: hybrid            # Phase 3: BM25 + vector, fused with Reciprocal Rank Fusion
+  top_k: 8
+  bm25:
+    enabled: true
+    # no `weight` needed -- RRF fuses by rank position, not a manual score
+    # blend, see src/k8s_rag/retrieval.py's module docstring for why
+
+reranker:
+  enabled: false           # still unimplemented -- needs a cross-encoder model, HF-hosted,
+                            # blocked in this sandbox. See docs/ABLATIONS.md Phase 4.
+  provider: cohere         # cohere | cross_encoder
+  top_n: 4
+
+confidence_gate:
+  enabled: true             # the half of Phase 4 that doesn't need a new model
+  min_score: 0.02990         # calibrated by scripts/calibrate_refusal.py against the golden
+                             # set: 83.3% refusal recall at 100% answerable pass-rate (n=20)
+                             # NOTE: re-calibrate if fanout changes the score distribution --
+                             # see docs/ABLATIONS.md Phase 5 for why this run keeps the Phase 4
+                             # threshold rather than silently re-tuning it.
+
+generation:
+  provider: stub           # stub | openai | anthropic — see src/k8s_rag/llm.py
+  model: "gpt-4o-mini"
+  temperature: 0.0
+  refuse_below_context_chunks: 1   # no retrieved evidence at all -> refuse
+  prompt_version: "v1"             # see config/prompts/
+
+query_understanding:
+  enabled: true            # Phase 5: per-version fan-out for questions that don't name a
+                            # version -- see src/k8s_rag/query_understanding.py's module
+                            # docstring. NOT LLM query rewriting or HyDE -- both still need a
+                            # real generation model, which this sandbox doesn't have. Documented
+                            # gap, same pattern as the Phase 4 reranker.
+
+tracing:
+  langsmith_project: "k8s-rag-portfolio"   # only active if LANGCHAIN_API_KEY is set
+
+vector_store:
+  provider: chroma
+  persist_dir: "data/chroma"
+  collection_name: "k8s_docs"

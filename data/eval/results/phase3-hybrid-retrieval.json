@@ -1,0 +1,54 @@
+{
+  "run_name": "phase3-hybrid-retrieval",
+  "config_path": "config/sandbox_local_hybrid.yaml",
+  "n_questions": 20,
+  "retrieval": {
+    "recall_at_k": 1,
+    "mrr": 0.8928571428571429,
+    "top_k": 8
+  },
+  "refusal": {
+    "recall": 0.16666666666666666,
+    "rows": [
+      {
+        "id": "ua-001",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-002",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-003",
+        "correctly_refused": true,
+        "decision": "refuse"
+      },
+      {
+        "id": "ua-004",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-005",
+        "correctly_refused": false,
+        "decision": "generate"
+      },
+      {
+        "id": "ua-006",
+        "correctly_refused": false,
+        "decision": "generate"
+      }
+    ]
+  },
+  "generation_quality": {
+    "status": "skipped",
+    "faithfulness": null,
+    "citation_precision": null,
+    "answer_relevancy": null
+  },
+  "latency_ms": {
+    "p50": 72.93999195098877
+  }
+}

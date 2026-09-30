@@ -1,0 +1,30 @@
+# Phase 8: convenience wrapper around `docker run` -- not a different
+# deployment topology, just named-volume persistence so a restart doesn't
+# re-fetch and re-ingest the whole corpus (docker-entrypoint.sh already
+# skips that step when data/chroma is populated; this is what makes it stay
+# populated across `docker compose down` / `up`).
+services:
+  k8s-rag:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      K8S_RAG_CONFIG: config/ci.yaml   # network-free local_tfidf -- see config/ci.yaml's own
+                                        # header comment for why this is CI/demo's config, and
+                                        # config/default.yaml's for the real one to run instead
+      K8S_RAG_RATE_LIMIT_PER_MINUTE: "60"
+      # OPENAI_API_KEY: set this and change K8S_RAG_CONFIG to a config with
+      # generation.provider: openai for real generation quality.
+      # LANGCHAIN_API_KEY: set this for LangSmith tracing on top of the
+      # structured request logs this service already emits.
+    volumes:
+      - k8s-rag-chroma:/app/data/chroma
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  k8s-rag-chroma:
